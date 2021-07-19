@@ -4,7 +4,7 @@ from stocks.views import populate_stock_history
 
 class MyCronJob(CronJobBase):
 
-    RUN_AT_TIMES = ['15:15']
+    RUN_AT_TIMES = ['14:12']
 
     print("inside cron")
 
