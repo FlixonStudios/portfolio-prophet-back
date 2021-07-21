@@ -1,0 +1,1 @@
+web: gunicorn portfolio-prophet-back.wsgi --log-file -
