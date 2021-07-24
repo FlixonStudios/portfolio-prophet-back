@@ -28,6 +28,6 @@ urlpatterns = [
     path('api/', include('stocks.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('accounts/', include('accounts.urls'))
-    re_path('(^(?!(api|admin)).*$)', TemplateView.as_view(template_name='index.html'))
+    path('accounts/', include('accounts.urls')),
+    re_path('(^(?!(api|admin)).*$)', TemplateView.as_view(template_name='index.html')),
 ]

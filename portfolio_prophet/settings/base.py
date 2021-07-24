@@ -94,6 +94,7 @@ SIMPLE_JWT = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -102,7 +103,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -134,18 +134,21 @@ WSGI_APPLICATION = 'portfolio_prophet.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-
-    'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': env('DB_NAME'),
-            'USER' : env('DB_USER'),
-            'PASSWORD' : env('DB_PASSWORD'),
-            'HOST' : env('DB_HOST'),
-            'PORT' : env('DB_PORT'),
-        }
+    'default': dj_database_url.parse(env('DB_URL'))
 }
 
-DATABASES['default'] = dj_database_url.parse(env('DB_URL'))
+# DATABASES = {
+#     'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': env('DB_NAME'),
+#             'USER' : env('DB_USER'),
+#             'PASSWORD' : env('DB_PASSWORD'),
+#             'HOST' : env('DB_HOST'),
+#             'PORT' : env('DB_PORT'),
+#         }
+# }
+#
+# DATABASES['default'] = dj_database_url.parse(env('DB_URL'))
 
 
 
@@ -189,7 +192,7 @@ USE_L10N = True
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'static'))
+STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'static')),
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 

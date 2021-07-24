@@ -23,7 +23,6 @@ dj-database-url = "*"
 django-heroku = "*"
 gunicorn = "*"
 whitenoise = "*"
-environ = "*"
 
 [dev-packages]
 
