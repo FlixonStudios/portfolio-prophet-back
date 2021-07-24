@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import environ
 import os
+import django_heroku
 import dj_database_url
 from datetime import timedelta
 
@@ -21,8 +22,8 @@ env = environ.Env()
 environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+APP_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -93,6 +94,7 @@ SIMPLE_JWT = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -112,7 +114,7 @@ ROOT_URLCONF = 'portfolio_prophet.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "build")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -132,18 +134,21 @@ WSGI_APPLICATION = 'portfolio_prophet.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-
-    'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': env('DB_NAME'),
-            'USER' : env('DB_USER'),
-            'PASSWORD' : env('DB_PASSWORD'),
-            'HOST' : env('DB_HOST'),
-            'PORT' : env('DB_PORT'),
-        }
+    'default': dj_database_url.parse(env('DB_URL'))
 }
 
-DATABASES['default'] = dj_database_url.parse(env('DB_URL'))
+# DATABASES = {
+#     'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': env('DB_NAME'),
+#             'USER' : env('DB_USER'),
+#             'PASSWORD' : env('DB_PASSWORD'),
+#             'HOST' : env('DB_HOST'),
+#             'PORT' : env('DB_PORT'),
+#         }
+# }
+#
+# DATABASES['default'] = dj_database_url.parse(env('DB_URL'))
 
 
 
@@ -185,7 +190,10 @@ USE_L10N = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'deployment', 'collected_static')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (os.path.join(APP_DIR, 'static')),
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -195,4 +203,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRON_CLASSES = [
     'stocks.cron.MyCronJob',
 ]
+django_heroku.settings(locals())
 

@@ -13,6 +13,16 @@ django-filter = "*"
 djangorestframework-simplejwt = "*"
 yfinance = "*"
 pystan = "==2.19.1.1"
+prophet = "*"
+django-chartjs = "*"
+plotly = "*"
+django-cors-headers = "*"
+django-environ = "*"
+django-cron = "*"
+dj-database-url = "*"
+django-heroku = "*"
+gunicorn = "*"
+whitenoise = "*"
 
 [dev-packages]
 
