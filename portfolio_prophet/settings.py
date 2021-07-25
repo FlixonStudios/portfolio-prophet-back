@@ -16,6 +16,9 @@ import os
 import django_heroku
 import dj_database_url
 from datetime import timedelta
+import mimetypes
+
+mimetypes.add_type("text/css", ".css", True)
 
 # Initialise environment variables
 env = environ.Env()
@@ -32,7 +35,7 @@ APP_DIR = Path(__file__).resolve().parent
 SECRET_KEY = 'django-insecure-ppog60%(=r5oc5oo9t18z*=a70l%1em(27_nm9(%iwc!t2_88='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
