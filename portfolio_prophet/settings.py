@@ -134,7 +134,7 @@ WSGI_APPLICATION = 'portfolio_prophet.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.parse(env('DB_URL'))
+    'default': dj_database_url.parse(env('DATABASE_URL'))
 }
 
 # DATABASES = {
