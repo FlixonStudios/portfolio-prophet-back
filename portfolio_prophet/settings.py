@@ -204,4 +204,5 @@ CRON_CLASSES = [
     'stocks.cron.MyCronJob',
 ]
 django_heroku.settings(locals())
+del DATABASES['default']['OPTIONS']['sslmode']
 
