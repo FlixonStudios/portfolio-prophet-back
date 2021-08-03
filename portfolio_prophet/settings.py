@@ -32,7 +32,7 @@ APP_DIR = Path(__file__).resolve().parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ppog60%(=r5oc5oo9t18z*=a70l%1em(27_nm9(%iwc!t2_88='
+# SECRET_KEY = 'django-insecure-ppog60%(=r5oc5oo9t18z*=a70l%1em(27_nm9(%iwc!t2_88='
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -74,7 +74,7 @@ SIMPLE_JWT = {
     'UPDATE_LAST_LOGIN': False,
 
     'ALGORITHM': 'HS256',
-    'SIGNING_KEY': 'YOLO',
+    'SIGNING_KEY': env('SECRET_KEY'),
     'VERIFYING_KEY': None,
     'AUDIENCE': None,
     'ISSUER': None,
